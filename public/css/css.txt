@@ -1,0 +1,1062 @@
+101
+=====
+1. the document should be marked up semantically.
+2. a stylesheet contain sevel style rules.
+3. a style rule has the form selector { property: value; ...}
+4. the most basic selector is element selector, where the element name is used for selection, like p, a
+5. id selector has the form #id_value
+6. the body of the rules contain one or several property: value pair.
+7. each property can take value form its domain set. depending on the types of element selected,
+some property: value pair will change how it is intended to be presented.
+8. CSS can be attached from externel .css file using link element or via @import css command.
+9. CSS can be embed in the document using style element.
+10. CSS can also be applied to the element using style attribute, not prefered.
+11. CSS allows comment /* */ which is also used to provide heading to several releted styles.
+
+CSS Basic Concepts
+===================
+1. the elements in HTML generates a tree structure.
+2. every element inside an element is known as its decendants.
+3. every element directly contained inside an element is known as its child.
+4. the direct container of the element is known as its parent.
+5. all elements higher than a particular element is known as its ancestors.
+6. two element having same parent is known as siblings.
+
+7. properties related to styling the text are inherited.
+8. properties related to layout or properties that applied to the box are not inherited.
+9. inheritance provides an easy way to style that applies to all decendants.
+
+10. cascade refers to what happens when several style rule conflicts.
+11. priority of style: user !important, author !important, author, user, user agent.
+12. when two style rule conflicts in the same stylesheet, more specific ones win, like ID selector
+is more specific than the element selector.
+13. author stylesheet is added in the following order: externel - embedded - inline.
+14. when two style rule with equal weight coflicts, the last one wins unless previous one was
+marked as !important.
+15. the last rule is used to provide fallback style for new properties that is not available
+for all agents. the new fancy rule must go last.
+
+16. CSS see every element (both block and inline) as contained inside a rectangular box.
+17. the box can have properties margin, padding, border, background and positional properties.
+
+18. group selector: list selectors seperated by comma. same block applies to all selectors.
+
+CSS Units
+==========
+1. comes in two natural category: 1. absolute and 2. relative
+2. absolute: in - inch, px - 1/96 in, pt - 1/72 in, pc - 12pt, mm - milimeters, cm - 10mm, q - 1/4 mm
+3. relative: em - current font size - M width, ex - lowercase x height, rem - root element em size,
+ch - zero width, vw - 1/100 viewport width, vh - 1/100 viewport height, vmin - min(vw, vh),
+vmax - max(vw, vh)
+4. percentage is not a unit, but can be used in place of units. depending on the property, it varies
+which measurement it will be based on.
+5. child element doesnt inherit the relative unit, rather the calculated value.
+6. IE9 uses vm instead of vmin, and vmax doesnt exist there.
+
+7. from all the absolute units, only px is used. it is used only for measurement where the value must be
+fixed for all screen sizes such as border layout, some images which doesnt change dimension.
+8. rem - defaults to 16 pixel, user as well as author can set to another size. mostly used as absolute
+measurement but only when the measurement should increase when the text size is increased. IE8 has issues.
+9. em - current font size - M width - used for measurement which should change with the font size.
+10. vw, vh, vmin, vmax - these values is useful for responsive layout where measurement should be
+based on the current visible area.
+11. More: www.w3.org/TR/css3-values/, css-tricks.com
+
+Formatting Text
+================
+1. All CSS properties shares three values: I. initial: for default value, II. inherit: to force inheritance
+and III. unset: to set initial if doesnt inherit by default or inherit.
+
+Font 101
+=========
+1. The first thing a design should specify is the font.
+2. typeface - font-family: one or more, seperated by comma.
+3. font names must be Title Case except generic family.
+4. multiword font names must be enclosed in quotation mark.
+5. Multiple font names are used for fallback. It is useful to use a generic name as the last.
+6. To embed custom font, we can create font using @font-face.
+
+Font Family
+============
+1. There are 5 generic font family.
+2. serif - has decorative stokes. ex: Times, Times New Roman, Georgia
+3. sans-serif - has strignt stokes. ex: Arial, Arial Black, Verdana, Trebuchet MS, Helvetica, Geneva
+4. monospace - equal width for all characters. ex: Courier, Courier New, and Andale Mono
+5. cursive - handwritten. ex: Apple Chancery, Zapf-Chancery, and Comic Sans
+6. fantasy - decoration. ex: Impact, Western, or other decorative font
+
+Font Stack
+============
+1. The font stack should be carefully chosen such that the font selected are similar and there are
+enough alternatives. And the stack should end with a generic name.
+2. More: www.cssfontstack.com, www.sitepoint.com/eight-definitive-font-stacks
+
+Font Size
+===========
+1. font size is specified by font-size property.
+2. the value it takes are: units, percentage, small, medium, large, xx-*, x-*, larger and smaller.
+3. the larger and smaller refers to surround font size.
+4. the default value is medium.
+
+4. prefered values are: rem, em and percentage.
+5. initialize relative measurement with html { font-size: 100%; }, should be 16px by default.
+6. rem is used as absolute measurement with honouring the user defined size.
+7. em is used relative to current font size.
+8. em has different impact for different places.
+9. percentage works similarly as em.
+10. to calculate % and em value: target-size/context-size = result
+
+11. the keywords for sizes aren't common. but still they can be used and the exact size will
+be determined by the browser.
+12. using smaller or larger isn't that bad for phrasing texts if exact size isn't that critical.
+
+Weight and Style
+=================
+1. font-weight controls boldness of the text. default value: normal
+2. values: normal | bold | bolder | lighter | 100:100:900
+3. prefered values: normal and bold as most font do not comes with many weight.
+
+4. font-style controls posture of text. default: normal
+5. values: normal | italic | oblique
+6. prefered value: normal and italic
+
+Typography
+============
+1. font-variant is used to apply a variation of the font used.
+2. values: normal | small-caps.
+3. when more than 2 capital letter are used in text, the font should use the variant
+small-caps if it want to preserve the flow. all caps letters usually stands out from line.
+
+4. font-stretch is used to condense or expand a font.
+5. values: normal | condensed | expanded | ultra-* | extra-* | semi-*
+6. advaned typography: www.w3.org/TR/css-fonts-3
+
+Shorthand
+===========
+1. the font shorthand can be used to set all font related properties.
+2. omitting any value will cause that value to reset to default.
+3. at least size and family must be included.
+4. the shorthand has keyword: caption, icon, menu, message-box, small-caption and status-bar.
+these keyword represent system font setting for these situations.
+
+CSS color 
+===========
+1. color - this changes the color of a text. allows #RRGGBB, #RGB and names for color.
+2. changes the forground. which includes the border color unless overriden.
+
+Selector 201
+=============
+1. selector1 selector2 - known as decendant selector. matches all element of selector2 when it is
+decendant of some element which matches selector1.
+2. decendant selectors can be nested.
+3. elementname#id_value or #id_value - ID selector. matches element having the specfied ID.
+4. selector1 > selector2 - child selector. matches selector2 when it is directly contained in selector1.
+5. selector1 + selector2 - next sibling selector.
+6. selector1 ~ selector2 - subsequent sibling selector. selects all element that matches selector2,
+shares same parent as selector1 and comes after it in the source.
+7. element.class, .class - class selector.
+8. * - universal selector - matches everything
+
+Text Formatting
+================
+1. line-height specify the height of the line box in which the text is vertically centered.
+2. value: scalling factor | unit | percentage measurement.
+3. scaling factor is preferable as it inherit directly. where other inherit the calculated value.
+
+4. text-indext - controls the indentation.
+5. values: unit | percentage measurement.
+6. percentage is calculated based on width and inherited as percentage.
+7. negative value creates hanging indent.
+
+8. text-align - changes alignment.
+9. values: left | right | center | justify | start | end. defaults to start.
+10. start and end is defined in CSS3 for language which is written right to left.
+11. text-align-last is used to align the last line of text.
+12. text-justify introduces more control over justified text.
+
+13. text-decoration - is used to decorate the text.
+14. values: none | underline | overline | line-through | blink
+15. blinking text is no good. no longer supported.
+
+16. text-transform - used for controling the case of the language.
+17. values: none | capitalize | lowercase | uppercase | full-width
+18. full-width is not well supported.
+
+19. letter-spacing and word-spacing controls the spaces.
+20. values: unit and normal.
+
+21. text-shadow introduces shadow in the text.
+22. values: none | horizontal-offset vertical-offset blur-radius shadow-color
+23. multiple shadow is possible.
+
+24. Text: www.w3.org/TR/css-text-3
+25. Decoration: www.w3.org/TR/css-text-decor-3
+
+26. white-space - defines how white space in the source will be handled.
+27. vertical-align - controls alignement of an inline element conpared to sorrounding. useful with td's.
+28. word-break and line-break - used to control the breaking rules for text.
+29. tab-size - defines the length of the tab size.
+30. hyphens - defines how to apply hyphens in the text.
+31. overflow-wrap - defines whether to break text to honour the bounding box.
+32. hanging-punctuation - whether punctuation can appear out of the box.
+33. direction - sets direction of the text.
+34. unicode-bidi - related to bidirectional features of unicode.
+
+List Item Formatting
+=====================
+1. list-style-type - applies to element shown as list-item or their container.
+2. values: none | disc | circle | square | keyword for decimal, roman, latin and alphabet.
+3. list-style-position - defines where the marker wents for list item.
+4. values: inside | outside | hanging. default outside.
+5. list-style-image - allows custom bullet.
+6. list-style if a shorthand for list properties.
+
+Color Value
+=============
+1. color_name - CSS2 had 17 color name, and CSS3 have 140 color name defined.
+for transperancy, a name transparent is defined.
+2. rgb(0-255, 0-255, 0-255) or rgb(0-100%, 0-100%, 0-100%)
+3. #RRBBGG, #RGB
+4. rgba(..., opacity 0-1)
+5. hsl(0-360, 0-100%, 0-100%). also has hsla.
+
+Color 101
+===========
+1. Selecting many different hue creates visual chaos.
+2. Limit selection to a few. Some designer used one dominant and one highlight color.
+3. If more color needed, create a shade of them. Not a different hue.
+4. Keep enough contrast between forground and background.
+5. Design with color blind in mind.
+6. More: css-tricks.com/accessibility-basics-testing-yourpage-for-color-blindness/
+and Geri Coady’s book Color Accessibility Workflows(A Book Apart)
+
+Forground
+===========
+1. forground consists of text and border.
+2. color - this property define forground color.
+
+Background
+============
+1. background-color: color_value | transparent
+2. fills entire canvas behind the element with background color.
+3. when applied to html or body, fills the whole viewport.
+
+4. background-clip - controls the area where the background applies.
+5. values: border-box| padding-box| content-box. defaults to border-box
+
+6. opacity: 0-1; this property defines opacity of a particular element.
+for IE8 use filter: alpha(opacity=0-100)
+
+Pseudo Class Selector
+=======================
+1. some element has some implicit class which isn't in the markup. these are called pseudo-class.
+2. these are indicated by :class_name. typically E:class_name
+
+Link
+-------
+3. :link - applies to unvisited link.
+4. :visited - applies to visited link.
+5. for security reasons, basic color, background, border, outline can be applied through :visited.
+
+General
+--------
+6. :focus - state for focus.
+7. :hover - state for mouse over.
+8. :active - state clicked or tapped.
+9. To function properly, these classes should be write in proper order.
+10. hover causes problem on screen touch devices. the state sticks after a single tap.
+
+Document Structure
+--------------------
+11. :root
+12. :empty
+13. :first-child
+14. :last-child
+15. :only-child
+16. :first-of-type
+17. :last-of-type
+18. :only-of-type
+19. :nth-child()
+20. :nth-last-child()
+21. :nth-of-type()
+22. :nth-last-of-type()
+
+Input Field
+-------------
+23. :enabled
+24. :disabled
+25. :checked
+
+Others
+--------
+26. :target
+27. :lang()
+28. :not()
+29. More: www.smashingmagazine.com/2016/05/an-ultimate-guide-to-css-pseudo-classes-andpseudo-elements/
+
+Pesudo Element Selector
+========================
+1. There are also some fictional elements which are not in the markup.
+These are called pseudo element selector.
+2. Can be written via both :: and : operator.
+
+3. ::first-line - used to apply color, background, few text related properties.
+4. ::first-letter - used to apply color, background, some box and text related properties.
+
+5. Some content can be generated via special pseudo element. Which can be greatly used for presentational
+purposed.
+6. ::before - generate content before the selection.
+7. ::after - generate content after the selection.
+8. content - this property is used to add the content.
+9. the style must go along with it, in the block.
+10. to generate text, use text in quotation. add spaces around if needed.
+11. to generate image, add url(quotation_free_url)
+12. More: www.smashingmagazine.com/2011/07/learning-to-use-the-before-and-afterpseudo-elements-in-css/
+
+Attribute Selector
+===================
+1. E[ATTR] - selects if attribute exists.
+2. E[ATTR="VAL"] - select if exactly match.
+3. E[ATTR~="VAL"] - space seperated word match.
+4. E[ATTR|="VAL"] - hyphen seperated word match.
+5. E[ATTR^="VAL"] - match begining
+6. E[ATTR$="VAL"] - match ending.
+7. E[ATTR*="VAL"] - substring match.
+
+Background Image
+=================
+1. background-image - used to apply an image.
+2. value: none | url(location of image)
+3. add a similar background-color as of the primary color of the image.
+4. by default the image will make a tiling on the entire background.
+
+5. background-repeat - controls the tiling of the image.
+6. values: repeat| no-repeat| repeat-x| repeat-y| space| round
+
+7. background-position - defines origin of the first image in the background from which tiling will extend.
+8. values: unit | percentage | top | left | right | bottom | center. default 0% 0%
+9. two values are provided. if one is missing, it will be taken as center.
+10. for unit and percentage, offset are provided from left in first and top in second.
+11. CSS3 defines another version where two edge and offset pair are given.
+
+12. background-origin - defines the box relative to which background-position will measure.
+13. values: border-box| padding-box| content-box. defaults to padding-box.
+
+14. background-attachment - defines whether the background scrolls with the document or not.
+15. values: scroll| fixed| local
+16. scroll is default. fixed fixes the position relative to the viewport but within the element. and
+local fixes the background relative to viewport but scrolls if the element iteself has a scroller.
+
+17. background-size - defines size of the background.
+18. values: length| percentage| auto| cover| contain. defaults to auto.
+19. two values are given for width and height. second one gets auto value if not given.
+20. cover fills the entire element and contain resizes image if it is bigger, otherwise repeats.
+
+21. CSS3 allows multiple background to be provided by comma separated list.
+
+22. CSS3 allows us to create gradient image on the fly.
+23. can be used anywhere an image is needed.
+24. gradient doesnt have an instrinsic size or proportion.
+
+25. linear-gradient(angle, list of color and stops)
+26. angle can be defined with 'to' keyword. like, to right, to top right etc.
+27. or using ndeg notation. like 0deg which points top.
+28. as many as pure color value and point can be defined using color value and percentage. ex, blue 25%
+29. the color position can be omitted. it will be interpolated to be spaced evenly.
+
+30. radial-gradient() requires minimum two color stops. radial-gradient(yellow, green)
+31. can specify shape: radial-gradient(circle/ellipse, ...)
+32. also size: width height or keywords.
+33. and finally centre point: using at notation.
+
+34. there are more: repeating-linear-gradient and repeating-radial-gradient
+35. further: Colors, Backgrounds, and Gradients by Eric Meyer, css-tricks.com/css3-gradients,
+developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients, CSS Mine by Martin Michalek
+36. generators: www.colorzilla.com/gradient-editor/, www.virtuosoft.eu/tools/css-gradient-generator/
+
+Externel Stylesheet
+====================
+1. .css plaintext file.
+2. optionally first line: @charset declaration. defaults to UTF-8
+3. comments are written using /**/ notation.
+4. link - this tag is used to link a stylesheet. rel="stylesheet" and href="URL" is required.
+5. often includes type="text/css". helpful for scripting.
+6. @import: url("URL") is another way which includes it from another sheet.
+7. the rule must go before any selector.
+8. the cascade rule applies when multiple documents are present.
+9. these can be included for specific media types using media queries.
+
+Modular Stylesheet
+===================
+Many developers keeps different styling in separate document. like layout, typography etc.
+It is helpful to create design that works and then add site specific styles.
+To reduce the site loads, it is better to compile then in a document beofore going in final use.
+
+Element Box
+============
+1. every element creates a rectangular box around them.
+2. it consists of content, inner edges, padding, border, margin, outer edge
+
+Box Dimension
+==============
+1. width - length, percentage, auto
+2. applies to block-level and replaced inline like img elements.
+3. height - same as width.
+4. box-sizing - content-box| border-box
+5. box-sizing defines for which area width and height values are specified.
+6. by default height and width is the measurement of content area, we can use border-box if
+we want to specify them for border box.
+7. it is best practice to set html to border box and everything to inherit it.
+8. max/min-width/height - specify bound on content-box.
+9. height is usually not specified. otherwise, we need to specify what happens to overflows.
+10. overflow - visible| hidden| scroll| auto. defaults to visible.
+
+Padding
+========
+1. area between border and content. provides little breathing room for content. very useful when
+using background or border.
+2. has padding-left/right/top/bottom properties and a shorthand.
+3. values: unit | percentage. defaults to 0.
+4. prefered values is in em or px as percentage are a bit difficult to manage.
+5. shorthand: top right bottom left; missing value will be filled with mirror one.
+6. the directional keyword is known as TRouBLe.
+
+Margin
+========
+1. margin keeps element separate one from another.
+2. margin syntax is just like padding. but margin has some quirks.
+3. value: unit | percentage | auto. auto allows the browser to fill or fit the available space.
+
+4. setting auto to left and right has the effect of centering the element in its container.
+5. adding margin to body is applied as it is contained in viewport as container.
+
+6. top-bottom margin of ajdacent box collapse to the largest one. left-right margin accumulates.
+7. floating and absolutly positioned element doesn't show collapsing margin.
+8. More: www.andybudd.com/archives/2003/11/no_margin_for_error, www.complexspiral.com/publications/
+uncollapsingmargins
+9. for phrasing elements, margin is applied to left and right side only. but for replaced content like
+images, it is applied to all sides.
+10. negative margin pulls the box into the opposite direction.
+11. use margin to move elements around in the layout.
+
+Border
+=======
+1. border-style: TRouBLe. There are 8 border style to be picked from.
+2. values: none| solid| hidden| dotted| dashed| double| groove| ridge| inset| outset
+3. default is none, which invalidate all other border related properties.
+
+4. border-width: TRouBLe.
+5. values: length| thin| medium| thick. defaults to medium.
+
+6. border-color: TRouBLe.
+7. values: color or transparent. defaults to forground color.
+8. transparent is useful to create rollover effect because it preserves the space.
+
+9. border: style width color; also has TRouBLe properties.
+
+10. border-radius also has corner TRouBLe properties.
+11. values: length | percentage. defaults to 0.
+12. to apply elliptical corner TRouBLe used 2 space separated value, and shorthand use slash as separator.
+
+13. CSS3 introduced border-image-* properties which lets us specify image for border.
+
+Outline
+========
+1. outlines are drawn around border.
+2. they doesnt contribute to box dimension. hence, they are just for visual effect.
+great tool to check box related design.
+
+3. the properties are same as border.
+4. outline-color has one more keyword invert with little browser support.
+5. outline-offset: length; moves the outline by a specified amount.
+
+6. outline: shorthand for style width and color. has TRouBLe properties.
+
+Display
+========
+1. display - by default html assigns element a display type which denote how it will be rendered.
+but for other XML based language which doesn't defines it, display can provide them a personality.
+2. it is also possible to change the display type of some element for which it is already defined.
+3. values: inline | block | run-in | flex | grid | flow | flow-root | list-item | table | table-row-group |
+table-header-group | table-footer-group | table-row | table-cell | table-column-group | table-column |
+table-caption | ruby | ruby-base | ruby-text | ruby-base-container | ruby-text-container | inline-block |
+inline-table | inline-flex | inline-grid | contents | none.
+4. if display is not defined by default, it will be treated as inline.
+
+5. one common technique is to set li display type to inline to line them up.
+6. setting 'a' as block allows width and height properties.
+7. display: none - moves the content as it doesnt exists. where visibility: hidden just hide it with
+keeping its dimension.
+
+Box Shadow
+===========
+1. box-shadow - creates shadow of the box around it.
+2. values: H_offset V_offset blur spread color inset | none
+3. inset keyword emuluates a pressed effect.
+4. nevative measurement is allowed.
+
+Normal Flow
+============
+1. block element sit one top of another.
+2. inline elements line up one after another. to fill its container.
+3. on resize, blocks change their dimension and changes the layout.
+4. on resize, inline elements reflows.
+
+Floating
+=========
+1. allows to move the element as far as possible to the left/right and left the content to wrap around them.
+2. float: left/right/none. defaults to none.
+3. a floating element is like a island in the flow of streams.
+4. the element still contained in the content area.
+5. the entire box, upto outer edge is floated.
+6. margin on the floated element do not collapse.
+
+7. floated inline element behave like block level element.
+8. hence it can use margin in all sides and provide a box dimension.
+
+9. floating block element should have a width. otherwise it doesnt make sense.
+10. the sorrounding boxes position them as floating element doesnt exist.
+11. the floating element floats left or right relative to where it was mentioned.
+12. the content of other elements which doesn't float, wraps around too.
+
+13. clear: left| right| both| none.
+14. used to force non wrapping behaviour of the element that follows the float. works on block only.
+15. the value denote which sides floating element should be clearing.
+
+16. floating multiple element was a very powerful layout design technique.
+17. the non-floated element will go with the normal flow, the floated element will be as left/right as
+possible and as high as possible.
+
+18. if the floated element is takes larger space than content around, then it overflows without
+expanding the container.
+19. using clearfix is a good way to apply this. use conatiner:after to insert a char space display block
+and clear both sides.
+20. setting width 100% also do the trick.
+21. Experimental display value flow-root also does the trick.
+
+22. In the old days floats were used for layout: Page Layout with Floats and Positioning, learningwebdesign.
+com/articles/
+
+Fancy Text Wrap
+================
+1. shape-outside - use to control how text wrap around. use on floated object.
+2. values: none| circle()| ellipse()| polygon()| url()| [margin-box| padding-box| content-box]
+3. for url, the transparent area of the image provided will be used as guide. shape-image-threshold: 0-1
+can be used if image have multiple level of transperancy.
+4. shape-margin used to provide margin around the shape.
+5. values: length| percentage. defaults to 0.
+6. circle(radius) creates a custom path to guide the text.
+7. the path is clipped by the float dimension. that means, the text can come inside, the shape cant
+go beyond the element dimension.
+8. ellipse(rx ryat x y); creates an ellipse centred at (x, y). unit or percentage allowed.
+9. polygon(x y, ...) creates polygon as wrap guide.
+10. More: www.w3.org/TR/css-shapes-1/, www.html5rocks.com/en/tutorials/shapes/getting-started,
+labs.jensimmons.com/#shapes, alistapart.com/article/redesign-with-css-shapes
+
+CSS Positioning
+================
+1. position: static | relative | absolute | fixed | sticky. defaults to static.
+2. static - for normal document flow position.
+3. relative - moves the element relative to its static position. occupy the original space even
+after repositioning.
+4. absolute - the element box is completely removed from flow. positioned relative to containing element.
+5. fixed - positioned relative to the viewport. has no effect on flow. stay same position even if
+the document scrolls.
+6. sticky - works as a relative positioned element, acts as fixed after reaching certain specified position
+in the viewport. 
+
+7. top/right/bottom/left: length| percentage| auto - one or more combination of them specify the position.
+8. negative values are also acccepted.
+
+9. relative position element preserves its natural flow space.
+10. the element's new position may overlap.
+11. relative position is mostly used to create 'positioning context' for absolute positioning.
+
+12. when absolute position is used, the original space is no longer preserved.
+13. the offset value are calculated from the nearest containing block.
+14. if the positioned element is not contained in another positioned element then html is used.
+15. the lowerst ancestor having non static position will be the containing block.
+16. the position is calculated from the content-area is container is inline. otherwise uses padding-area.
+17. the outer edge is positioned via offset for absolute positioning. for relative box, the box iteself
+is positioned.
+18. the relative positioned context acts like a box. width is acccepted for inline.
+
+19. positioned elements may overlap. the stacking order of the overlap can be controlled.
+20. z-index: number | auto. specify the z-index. defaults to source order.
+
+21. fixed positioned element remains in the same position even if it scrolls.
+22. printed on every page, if not turned off.
+23. always overlap with some content. hence, may not worth always.
+
+FlexBox
+=========
+1. FlexBox is a great tool to organize content in a row or a column.
+2. FlexBox let elements change their size to fill the available space of its container.
+3. That means, all neibouring element is at the same height, easy horizontal and vertical alignement and
+ability to alter the flow without changing the source.
+4. Note: Multicolumn Text Layout, learningwebdesign.com/articles
+
+5. display: flex/inline-flex sets the container in flex mode.
+6. all direct child becomes flex item.
+7. float, clear and vertical-align doesn't work on flex item.
+8. flex item should avoid percentage value for margin and padding.
+
+9. by default elements are flex ltr or rtl depending on the language direction.
+10. flex-direction: row | column | row-reverse | column-reverse
+11. the *-reverse keyword alters the flex direction.
+12. row and column refers to the language direction. row points to natural which is horizontal for most
+cases, column refers other way.
+
+13. the flow direction is called main axis, the other axis is known as cross axis.
+14. two measure main size and cross size are also defined via the dimension of the container.
+
+15. flex-wrap: nowrap | wrap | wrap-reverse
+16. wrap and wrap reverse allows breaking flex item into multiple lines.
+
+17. flex-flow: flex-direction flex-wrap is a shorthand for keep things tidy.
+
+FlexBox Alignement
+====================
+1. by default flex item has natural width. that means, there may be some empty space inside the container.
+2. by default that appear one after another.
+3. justify-content - defines how the extra space of main axis will be distributed.
+4. values: flex-start | flex-end | center | space-between | space-around
+5. the default value is flex-start.
+
+6. align-items - defines how items are aligned in cross axis.
+7. values: flex-start | flex-end | center | baseline | stretch
+8. defaults to stretch which forces the items to fill the available cross axis.
+9. the baseline value align items such a way that their first texts baseline aligns.
+10. align-self - property of item which changes the alignment setting of the parent element.
+
+11. align-content - defines how multiline flex items are aligned.
+12. values: flex-start | flex-end | center | space-around | space-between | stretch
+13. applies to: element box with wrap enabled.
+
+14. use margin to add space for a specific item.
+15. setting margin to auto disbales justify-content's visual effect.
+16. the auto margin area's distribute extra space among them.
+
+Flex Item
+==========
+1. the concepts flex is associated with how flex items resize themselves to fit the extra space.
+if the extra space is taken by items then alignment wont have any visual effect.
+2. flex: none | flex-grow flex-shrink flex-basis
+3. defaults to 0 1 auto. here flex-grow and flex-shrink takes value 0 and 1 which works like on/off switch.
+5. flex-basis gives it a starting size. auto represents size defines by inner content or width/height.
+6. although flex is a shorthand, there indivisual componenet should never be set.
+
+6. flex-grow: number. defines how the element should expand.
+7. assigning different grow value to different item will distribute the space proportionally.
+
+8. flex-shrink: number. defines how the element should shrink.
+9. the number defines how much space should be taken away.
+10. the shrink is done upto min-width/min-height which is initially set to auto, which means min-content.
+
+11. flex-basis: length| percentage| content| auto
+12. flex setting override the specifed width/height value depending on the orientation.
+
+13. flex has come predefined settings.
+14. values: initial | auto | none | integer.
+15. if a shortcut do the trick, avoiding manual setting is best practice.
+16. initial - 0 1 auto. default.
+17. auto - 1 1 auto.
+18. none - 0 0 auto.
+19. integer - integer 0 0px. which is also known as absolute flex.
+20. flex-basis should always have an unit even if it is 0px or 0%.
+
+Flex Re-Order
+==============
+21. order defines how items are ordered.
+22. order: integer. initially 0 for all.
+23. as the order of indivisual items changes, they are reordered in ASC order.
+24. Old days push and pull technique can be replaced with this.
+
+25. Currently all browsers supports flexbox. but some older browser uses different keyword.
+CSS autoprefixer can solve the issue.
+26. More: css-tricks.com/snippets/css/a-guide-to-flexbox, flexboxfroggy.com, flexbox.io,
+codepen.io/enxaneta/full/adLPwv, the-echoplex.net/flexyboxes, github.com/philipwalton/flexbugs
+
+CSS Grid
+=========
+1. CSS grid layout is a way to organize elements in rows and columns.
+2. More: Grid Layout in CSS by Eric A. Meyer, labs.jensimmons.com, www.w3.org/TR/css-grid-1,
+The New CSS Layout by Rachel Andrew, gridbyexample.com, cssgridgarden.com
+
+
+Terminology
+============
+1. grid container - display: grid;
+2. grid item - direct child of grid container.
+3. grid line - horizontal and vertical dividing line.
+4. grid cell - smallest unit in a grid.
+5. grid area - a rectangular area made up of one or more adjacent cells.
+6. grid track - space between two grid line.
+7. grid column - a vertical grid track.
+8. grid row - a horizontal grid track.
+9. inline axis - horizontal axis.
+10. block axis - vertical axis.
+
+Setting Up a Grid
+==================
+1. use display to turn one element into grid container. the children will become grid items.
+2. set up or provide a mechanism to create row and columns.
+3. assign items into grid cells. default, sequential assignment.
+
+4. display: grid/inline-grid.
+5. sketch the grid in paper width dimension.
+
+6. grid-template-rows and grid-template-columns is used to create the row/column grid and
+provide them track size.
+7. vlues: none | space spearated list of track sizes and optionally line names.
+
+8. grid lines has a number, from start 1 to increasing and from end -1 to decreasing.
+9. grid lines can have a name which goes into [name_here]. eg. grid-template-row: [ad] 100px [ss] 20px [dd].
+10. more than one name is allowed, just put them in space separated list.
+
+11. there are many way to provide the track sizes along with unit or percentage mesures.
+12. fr - fraction or flex factor - used to distribute spaces.
+13. minmax(MINIMUM SIZE, MAXIMUM SIZE) - used to set bound.
+14. min-content - largest unbreakable unit. smallest content based size.
+15. max-content - maximum amount of space needed for the content.
+16. auto - allows wrapping and uses implicit size for content. always use auto first to check
+the behaviour if want to use content based sizing.
+
+17. repeat(number/auto-fill/auto-fit, phrase) - grid-template-* properties can use this to
+duplicate a phrase.
+18. auto-fill is used to discover the number automatically. If there is not enough content the space
+remain empty.
+19. auto-fit works like auto-fill except the tracks who doesn't have content are dropped.
+
+20. grid-template-areas: none| series of area names
+21. Every cell is listed to provide the name of the area they belong.
+22. Each row is enclosed with double-quotation.
+23. the name should be given in a way that they from valid area.
+24. when given area a name, lines enclosing them got name area_name-start and area_name-end automatically.
+similarly the reverse is also true.
+25. if some cells wont be named, use one or more period in its place.
+
+26. grid/grid-template: none | row-info / column-info. shorthand for grid-template-*
+27. if is not prefered way as things becomes more complex.
+28. for row-info use format [start line name] "area names" <track size> [end line name]
+29. for column-info use [start line name] <track size> [end line name]
+
+Fill Grid Cells with Items
+============================
+1. four properties are added to each grid items to specify their position.
+2. grid-row-start/grid-row-end/grid-column-start/grid-column-end
+3. values: auto| grid line | span number | span 'line name' | number 'line name'
+4. if end or start is not present, it is assumed to take one track.
+5. instead of giving an line identity, span number provide another way to refer them.
+6. grid-row/grid-column: start-line / end-line; is a shorthand.
+7. grid-area: area name | 1 to 4 slash separated line identifiers also provide a good way to specify location.
+
+Implicit Grid Behaviour
+========================
+1. sequential flow of items by default.
+2. automated grid line naming via area and vice versa.
+3. tracks are automatically for content which doesnt fit to the grid.
+4. grid-auto-rows/grid-auto-columns: auto | list of track sizes
+5. grid items may be reordered using order property.
+6. the z-index property can try break in case of overlap.
+7. grid-auto-flow: row or column | dense (optional)
+8. with the grid shorthand, auto-flow keyword is added to one of the info sides to add flow direction.
+
+Alignement: works for Flex also
+==================================
+1. grid-row-gap/grid-column-gap: unit
+2. grid-gap: grid-row-gap grid-column-gap
+
+3. justify-self: start | end | center | left | right | self-start | self-end | stretch | normal | auto
+4. align-self: start | end | center | left | right | self-start | self-end | stretch | normal | auto
+5. used to distribute the extra space remained in the area.
+6. margin trick can also be used for controlling these behaviour.
+
+7. justify-items: start | end | center | left | right | self-start | self-end | stretch | normal
+8. align-items: start | end | center | left | right | self-start | self-end | stretch | normal
+9. align entire grid at once.
+
+10. justify-content: start| end| left| right| center| stretch| space-around| space-between| space-evenly
+11. align-content: start| end| left| right| center| stretch| space-around| space-between| space-evenly
+12. used to distribute additional space inside the container to tracks.
+
+Responsive Web Design
+======================
+1. a design and production approach that allow a website to be viewed comfortably in all devices.
+2. the same HTML source is used, based on the viewport size, different styles are applied to rearrange
+the design and optimize usability.
+3. More: Responsive Web Design by Ethan Marcotte, Responsive Design: Patterns & Principles, Ethan Marcotte,
+screensiz.es, Learning Responsive Web Design by Clarissa Peterson
+
+Basics
+=======
+1. Use a flexible grid.
+2. Use flexible media (images).
+3. Use CSS media queries to target devices for special style rules.
+
+4. Use viewport meta to match device width with the document width.
+5. By default, mobile devices uses a big viewport to render the pages which matches the desktop.
+then shrink the content to fit a smaller screen resulting tiny space containing lots of information.
+6. <meta name="viewport" content="width=device-width, initial-scale=1"> sets this viewport width to
+device width and sets the zoom level to 100%.
+
+7. Layout items that expand and shrink to fill the available space is known flexible items.
+8. Flexible grid is the key to RWD.
+9. CSS percentage measurement can also have the same effect.
+
+10. use img max-width to 100%. this way images will shrink, but wont expand beyond their limit.
+11. provide multiple images using picture element. this will make smaller devices faster.
+12. For video: www.alistapart.com/articles/creating-intrinsic-ratios-for-video, fitvidsjs.com
+
+Media Queries
+==============
+1. apply different style rule to different browsers.
+2. key to send one column layout on small devices and multi-column layout on big screen.
+3. media queries has the form
+@media type and (feature: value) {
+    style rules goes here
+}
+4. types: all, print, screen, and speech. defaults to screen.
+5. Media features can be tested for more specfic properties.
+6. width, min-width, max-width - width of viewport, min and max width works as test.
+7. height, min-height, max-height - height of display area.
+8. orientation -  portraitor/landscape
+9. aspect-ratio: width/height - ratio of display
+10. color: number - bit depth of display. test whether has at least n colors.
+11. color-index - number of colors in color lookup table
+12. monochrome - number of bits per pixel in monochrome devices.
+13. resolution - density of pixel, used to detect high resolution devices.
+14. scan - whether tv scan mode is progressive or interlace
+15. grid - whether the screen is grid based such as terminal.
+
+16. media queries can be used with stylesheet or to load stylesheet conditionally.
+17. first specify a baseline style to work as background.
+18. then add media queires for larger screen and high resolution devices.
+19. externel sheet can be loaded with link attribute media="screen and (min-width:1024px)
+20. also import works @import url("/wide-styles.css") screen and (min-width: 1024px);
+
+21. min-width feature is the cornerstone of mobile first responsive design, thus most useful.
+
+Breakpoints
+============
+1. a breakpoint is when we choose our site to have a stylechange.
+2. a common approach is to create breakpoint for indivisual components rather than whole page.
+3. design page for narrow screen first, then resize browser and watch where things go unacceptable.
+4. instead of pixel based measurement em-based measurement works better in case user wants a larger
+font size.
+
+Content
+=========
+1. content hierarchy - as content is the king of the web, it is a must that the content hierarchy is to
+be decided before anything else.
+2. content parity - same content must be go for all devices.
+3. content parity doesnt mean all content must exist. with conditional loading, they can be prevented
+loading but there should be some way to get there.
+4. More: Content Strategy for the Web by Kristina Halvorson, Content Strategy for Mobile by Karen McGrane
+
+Layout
+=======
+1. layout - rearranging content into different layout is the first thing to think to go responsive.
+2. fluid layout is key to go responsive.
+3. one fluid cant do it alone. hence, two to three layout is needed.
+
+4. text line length is a good triger to decide layout shift. 45 to 75 characters per line is optimal.
+either change font size or introduce columns to keep the count in desired range.
+5. set a background color to 45th to 75th characters then make sure the line breaks between it.
+
+6. there are some common patterns that can be followed.
+7. Mostly Fluid - one layout for each small, medium and large devices width a maximum width limit.
+8. Column Drop - in this one, two and three column layout shift appearance based on available space.
+the sidebar drops to bottom in two column. and second column also drop in one column layout.
+9. Layout Shifter - Each layout is designed differently. Most of the time not needed.
+10. Tiny Tweaks - single column layout changes small settings.
+11. Off Canvas - the layout is designed with many columns side by side. viewed as demand.
+
+Typography
+===========
+1. Small devices should not use fancy fonts.
+2. Lines may go too tight or too light for them.
+3. Small devices content is usually read from near, hence a small font size is ok.
+
+4. A 45 to 75 rule should strictly follow.
+5. Use Em-based layout to keep lines proportional.
+
+6. on average line-height should be 1.5em.
+7. for small device, tight lines are better, use 1.2 to 1.4
+8. for larger device, 1.4 to 1.6 is good as they are better with wider line height.
+
+9. small device need small margin for elements. stick to 2 to 4%
+10. for larger device use some more whitespace.
+11. top and bottom margin should go in em instead of % to keep them proportional.
+
+12. Fluid layout can use fluid typography using the viewport units.
+13. More: www.smashingmagazine.com/2016/05/fluid-typography
+
+Navigation
+===========
+1. Navigation is one of the hardest thing to go responsive.
+2. Top navigation - For few navigational elements, top navigation is just fine.
+3. Priority+ - The most useful links are displayed, the rest of them remain hidden under + button.
+4. Select menu - For medium list of links, select menu can be used to pop links.
+5. Link to footer menu - a full navigation links are set at bottom, then a button can be added to send
+them there.
+6. Accordion sub-navigation - For many navigation links, they are grouped together under some heading
+which is then used to open these sets of navigation links.
+7. Push and overlay toggles - menu is added as tap button which either pushes main content or overlay
+with the main content.
+8. Off-canvas/fly-in - the menu sets off canvas and the link go to that page.
+9. More: bradfrost.com/blog/web/responsive-nav-patterns, bradfrost.github.io/this-is-responsive/
+patterns.html, responsivenavigation.net
+
+Others
+=======
+1. Use responsive markup for image.
+2. If needed, provide text content instead of image for small devices.
+
+3. Forms needs special care for small screen sizes.
+4. Try google search for responsive form with flexbox.
+
+5. There is still no good solution for tables to make them responsive.
+6. Three appraoch are common: scrolling, stacking, and hiding.
+7. More: css-tricks.com/accessible-simple-responsivetables, dbushell.com/2016/03/04/
+css-only-responsive-tables, cloudfour.com/thinks/picking-responsivetables-solution,
+zurb.com/playground/responsive-tables, github.com/filamentgroup/tablesaw
+
+Responsive Test
+================
+1. The browsers responsive inspection is a good starting ground.
+2. Site should be checked against some real devices, on various operating system.
+3. It provides a way to check performance issues too.
+4. Use a device lab along with browsersync.io or www.vanamco.com/ghostlab.
+5. When real devices aren't feasible, emaluators are great way to check the design.
+6. www.mobilexweb.com/emulators is a good place for emaluators.
+7. Third party services like browserstack.com or crossbrowsertesting.com provides another way.
+
+Transitions
+============
+1. CSS transitions are used to smooth abrupt changes to property values among diffent values.
+2. transition-property: animatable-property-name| all| none.
+3. transition-duration: time. defaults to 0s.
+
+4. transition-timing-function: ease| linear| ease-in| ease-out| ease-in-out| step-start| step-end
+| steps| cubic-bezier(x1, y1, x2, y2)
+5. the timing function redefine how the interpolation is performed.
+6. ease - show-quick-slow. works great for small transition.
+7. linear - constant change. mechanical feeling.
+8. ease-in - slow-fast
+9. ease-out - fast-slow
+10. ease-in-out - slow-medium-slow
+11. cubic-bezier(x1,y1,x2,y2) - use beizer curve to follow transition.
+12. Cubic-Bezier.com is a good playground.
+13. steps(#, start|end) - used to change step by step. More: css-tricks.com/
+using-multistep-animations-transitions
+14. step-start and step-end are two shorthand for step function.
+
+15. transition-delay: time. used to set a starting delay.
+16. transition: property duration timing-function delay; shorthand can be handy.
+17. for more than one transition, use comma seperated list.
+18. For general smoothness, all keyword with .2s second delay is great.
+
+CSS Transform
+==============
+1. transform - used to geometically transform an element.
+2. values: rotate()| rotateX()| rotateY()| rotateZ()| matrix() | rotate3d()| translate()| translateX()|
+translateY()| scale()| scaleX()| scaleY()| skew()| skewX()| skewY()| none
+3. when an element is transformed, its original position is kept.
+4. rotate(angle) - rotate about the origin. ex. rotate(10deg).
+5.  transform-origin: percentage| length| left| center| right| top| bottom. defaults to 50% 50%.
+6. translateX/translateY/translate - used to translate the position.
+7. scaleX/scaleY/scale - used to scale the dimension. parameter is scaling factor.
+8. skewX, skewY, skew - used to skew the shape by specified degree.
+
+9. To apply multiple transformations, use transform: f1() f2() ... ;
+10. For transformation functions, order matters.
+11. applying transform on a different state doesnt preserve old state values.
+
+12. 3D transform just tilt the 2D poster in 3D axis.
+13. perspective: number - added to parent element to ensure that the childs are n high then the z-axis.
+14. perspective-origin hr vr - sets the observers eye position. defaults to 50% 50%
+15. backface-visibility - controls whether the backface will be visible.
+
+16. then to the child elements, add translate3d, translateZ, scale3d, scaleZ, rotate3d, rotateX, 
+rotateY, rotateZ, and matrix3d to add the desired effect.
+
+Keyframe Animation
+==================
+1. CSS transitions are animation with two state. start and end, and intermediate states are interpolated.
+2. For more control, we need to add more keyframes.
+3. More: www.w3.org/TR/css-animations-1, Transitions and Animations in CSS by Estelle Weyl,
+valhead.com/ui-animation, www.lynda.com/CSS-tutorials/CSS-Animation/439683-2.html,
+robots.thoughtbot.com/css-animation-for-beginners, www.smashingmagazine.com/2011/09/
+the-guide-to-css-animation-principles-and-examples
+
+4. animation process has two parts.
+5. establish keyframes with @keyframe rules.
+6. add the animation properties to the element that will be animated.
+
+7. @keyframe animation-name {
+    keyframe {
+        property: value;
+        ...
+    }
+}
+8. keyframe is added with % value. ie 10%
+9. to the object add properties that will add the animation to that.
+10. animation-name, animation-duration, animation-timing-function, animation-delay works as of transitions.
+11. animation-iteration-count: number | infinite
+12. animation-direction: normal | reverse | alternate | alternate-reverse
+13. animation-fill-mode: none | forward | backward | both - defines what happens when the animation is not
+playing. maybe delay is applied or ended playing.
+14. animation-play-state: running | paused - can be used for scripting.
+15. has a shorthand animation: name duration timing-function iteration-count direction;
+16. read Designing Interface Animation: Meaningful Motion for User Experienceby Val Head for proper
+use of animations.
+
+Style Forms
+============
+1. There is no special property to style forms.
+2. By default, different font may be selected for different field.
+3. set all form element to inherit font and set font size to 100%.
+
+4. Text inputs - change the appearance of the box iteself with width, height, background-color, 
+background-image,  border,  border-radius,  margin,  padding and box-shadow.
+5. For the text itself, try setting color and font related properties.
+
+6. The textarea element - use line-height and set font.
+7. resize: none - can be used to disable resizing.
+8. by default they are inline-block, display: block can be used to turn them.
+
+9. Button inputs - apply box related properties.
+10. Buttons are border-box by default and have some padding.
+
+11. Radio and checkbox buttons - leave them alone.
+12. Drop-down and select menus - use dimension properties. leave other properties.
+13. Fieldsets and legends - Fieldsets have a default border which can be turned off.
+14. The element can be thought an container and style that way.
+15. Legends are either turned off using 1X1 dimension and overflow hidden.
+16. Or they can be styled by keeping the text inside a span or b.
+17. Use layout techniques like flexbox or grid to design the form.
+
+Style Tables
+=============
+1. to adjust amount of space inside a cell, use padding.
+2. border-collapse: separate| collapse. defaults to spearate.
+3. border-spacing: horizontal-length vertical-length. defaults to 0.
+4. empty-cells: show | hide. controls cells with no content or whitespace.
+5. caption-side: top | bottom. defaults to top.
+6. table-layout: auto| fixed. controls how dimension is calculated.
+
+Clean Slate
+============
+1. Instead of depending on the style of the user agent for property that wasn't changes,
+a custom consistent rules may be better.
+2. CSS Reset provies a starting ground where almost all properties are reseted and needs to be
+defined for the stylesheet we are designing.
+3. Normalize provies a starting stylesheet that makes initial style rules consistent across the browsers.
+
+Misc
+=====
+1. To replace an text with image, use the image as background and set text-indent: -9999px;
+2. For smaller images, it is better to make a sprite and use background-position along with width
+and height to set only the desired portions of the image.
+3. Use @supports and Mordernizer to detect features.

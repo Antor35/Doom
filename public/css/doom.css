@@ -1,0 +1,178 @@
+html{
+	box-sizing: border-box;
+}
+*, *:before, *:after{
+	box-sizing: inherit;
+}
+body{
+	background-image: url("../images/doom.jpg");
+	background-repeat: no-repeat;
+	background-size: 100vw 100vh;
+	overflow: hidden;
+	background-attachment: fixed;
+}
+
+#system_tray{
+	position: fixed;
+	bottom: 0;
+	background: #ed9574;
+	width: 100%;
+	height: 45px;
+	opacity: 0.50;
+}
+
+#system_tray > ul {
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+
+#system_tray > ul > li {
+	display: block;
+	list-style: none;
+	height: 45px;
+	width: 45px;
+	margin-right: 2px;
+	background: #fff;
+	border: 3px outset white;
+}
+
+#system_tray > ul > li img{
+	width: 100%;
+	height: 100%;
+}
+
+#system_tray > ul #clock {
+	margin-left:auto;
+	background: none;
+	border: none;
+}
+
+#applications{
+	position: relative;
+	width: 1500px;
+	height: 1000px;
+}
+
+.app{
+	display: none;
+	position: absolute;
+	left: 300px;
+	top: 75px;
+	margin:0;
+	padding: 0;
+	border: 2px outset white;
+	background: #f0f0f0;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.on_top {
+	z-index: 1000;
+}
+
+.app .title{
+	display: flex;
+	height: 35px;
+	background: #f2dd59;
+	line-height: 35px;
+	font-size: 24px;
+}
+
+.app p{
+	margin:0;
+	padding: 0;
+}
+
+.app .title p{
+	margin: 0 2px;
+}
+.app .title .cross{
+	margin-left: auto;
+}
+
+.app .title .cross img, .app .title .icon img{
+	width: 35px;
+	height: 35px;
+}
+
+.app .content{
+	overflow: auto;
+}
+
+#launcher {
+	width: 600px;
+}
+
+#launcher .content{
+	height: 365px;
+}
+
+#launcher .content > ul {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#launcher .content > ul > li{
+	height: 70px;
+	width: 70px;
+	list-style: none;
+	margin: 10px;
+	padding: 5px;
+	text-align: center;
+	font-size: 12px;
+}
+
+#launcher .content > ul > li img{
+	width: 100%;
+	height: 100%;
+}
+
+#drumkit {
+	width: 830px;
+}
+
+#drumkit .content{
+	height: 400px;
+	background-color: black;
+}
+
+#color_game {
+	width: 700px;
+}
+
+#color_game .content{
+	height: auto;
+	background-color: #fff;
+}
+
+#mole_game {
+	width: 700px;
+}
+
+#mole_game .content{
+	height: auto;
+}
+
+#drawing {
+	width: 700px;
+}
+
+#drawing .content{
+	height: 500px;
+	overflow: hidden;
+}
+
+#drawing_board{
+	width: 700px;
+	height: 500px;
+}
+
+#text_editor .content{
+	overflow: hidden;
+}
+
+#text_editor{
+	width: 700px;
+	height: auto;
+}
